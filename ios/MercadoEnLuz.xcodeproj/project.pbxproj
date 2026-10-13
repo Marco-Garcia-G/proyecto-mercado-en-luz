@@ -1,0 +1,271 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000000000000000000001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000001 /* AppDelegate.swift */; };
+		A10000000000000000000002 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000002 /* MainViewController.swift */; };
+		A10000000000000000000003 /* LocalAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000003 /* LocalAPI.swift */; };
+		A10000000000000000000004 /* QuoteProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000004 /* QuoteProvider.swift */; };
+		A10000000000000000000005 /* GoveeBLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000005 /* GoveeBLE.swift */; };
+		A10000000000000000000006 /* GoveePacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000006 /* GoveePacket.swift */; };
+		A10000000000000000000007 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000008 /* Assets.xcassets */; };
+		A10000000000000000000008 /* web in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000009 /* web */; };
+		A10000000000000000000009 /* ThresholdAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000B /* ThresholdAlerts.swift */; };
+		A1000000000000000000000A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000C /* InfoPlist.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A20000000000000000000001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A20000000000000000000002 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		A20000000000000000000003 /* LocalAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAPI.swift; sourceTree = "<group>"; };
+		A20000000000000000000004 /* QuoteProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteProvider.swift; sourceTree = "<group>"; };
+		A20000000000000000000005 /* GoveeBLE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoveeBLE.swift; sourceTree = "<group>"; };
+		A20000000000000000000006 /* GoveePacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoveePacket.swift; sourceTree = "<group>"; };
+		A20000000000000000000007 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A20000000000000000000008 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A20000000000000000000009 /* web */ = {isa = PBXFileReference; lastKnownFileType = folder; name = web; path = ../app/web; sourceTree = "<group>"; };
+		A2000000000000000000000A /* MercadoEnLuz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MercadoEnLuz.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2000000000000000000000B /* ThresholdAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThresholdAlerts.swift; sourceTree = "<group>"; };
+		A2000000000000000000000D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A2000000000000000000000E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A30000000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A40000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				A40000000000000000000002 /* MercadoEnLuz */,
+				A20000000000000000000009 /* web */,
+				A40000000000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A40000000000000000000002 /* MercadoEnLuz */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000001 /* AppDelegate.swift */,
+				A20000000000000000000002 /* MainViewController.swift */,
+				A20000000000000000000003 /* LocalAPI.swift */,
+				A20000000000000000000004 /* QuoteProvider.swift */,
+				A20000000000000000000005 /* GoveeBLE.swift */,
+				A20000000000000000000006 /* GoveePacket.swift */,
+				A2000000000000000000000B /* ThresholdAlerts.swift */,
+				A20000000000000000000007 /* Info.plist */,
+				A2000000000000000000000C /* InfoPlist.strings */,
+				A20000000000000000000008 /* Assets.xcassets */,
+			);
+			path = MercadoEnLuz;
+			sourceTree = "<group>";
+		};
+		A40000000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A2000000000000000000000A /* MercadoEnLuz.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A50000000000000000000001 /* MercadoEnLuz */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A90000000000000000000002 /* Build configuration list for PBXNativeTarget "MercadoEnLuz" */;
+			buildPhases = (
+				A60000000000000000000001 /* Sources */,
+				A30000000000000000000001 /* Frameworks */,
+				A70000000000000000000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MercadoEnLuz;
+			productName = MercadoEnLuz;
+			productReference = A2000000000000000000000A /* MercadoEnLuz.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A80000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					A50000000000000000000001 = {
+						CreatedOnToolsVersion = 16.0;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = A90000000000000000000001 /* Build configuration list for PBXProject "MercadoEnLuz" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = es;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				es,
+				en,
+				Base,
+			);
+			mainGroup = A40000000000000000000001;
+			productRefGroup = A40000000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A50000000000000000000001 /* MercadoEnLuz */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A70000000000000000000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000007 /* Assets.xcassets in Resources */,
+				A10000000000000000000008 /* web in Resources */,
+				A1000000000000000000000A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A60000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000001 /* AppDelegate.swift in Sources */,
+				A10000000000000000000002 /* MainViewController.swift in Sources */,
+				A10000000000000000000003 /* LocalAPI.swift in Sources */,
+				A10000000000000000000004 /* QuoteProvider.swift in Sources */,
+				A10000000000000000000005 /* GoveeBLE.swift in Sources */,
+				A10000000000000000000006 /* GoveePacket.swift in Sources */,
+				A10000000000000000000009 /* ThresholdAlerts.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A2000000000000000000000C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A2000000000000000000000D /* en */,
+				A2000000000000000000000E /* es */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A91000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = MercadoEnLuz/MacCatalyst.entitlements;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A91000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		A91000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MercadoEnLuz/Info.plist;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mercadoenluz.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SUPPORTS_MACCATALYST = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A91000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = MercadoEnLuz/MacCatalyst.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MercadoEnLuz/Info.plist;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mercadoenluz.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SUPPORTS_MACCATALYST = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A90000000000000000000001 /* Build configuration list for PBXProject "MercadoEnLuz" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A91000000000000000000001 /* Debug */,
+				A91000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A90000000000000000000002 /* Build configuration list for PBXNativeTarget "MercadoEnLuz" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A91000000000000000000003 /* Debug */,
+				A91000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A80000000000000000000001 /* Project object */;
+}

@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#07090b">
+    <meta name="description" content="Local Govee H617A strip control and portfolio quotes.">
+    <title>Market in Light · Govee H617A</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <script>if (navigator.platform.startsWith('Mac')) document.documentElement.classList.add('platform-apple');</script>
+    <script defer src="mobile-api.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <main>
+      <section class="intro" id="inicio" aria-label="Strip control">
+        <div class="intro-scene">
+          <h1 class="sr-only">Market in Light</h1>
+          <header class="site-nav">
+            <a class="brand" href="#inicio" aria-label="Market in Light, home">
+              <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
+              <span id="device-brand">H617A</span>
+            </a>
+          </header>
+
+          <div class="light-stage">
+            <div class="light-aura" aria-hidden="true"></div>
+            <div class="light-line" aria-hidden="true"></div>
+            <div class="light-ticks" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <div class="strip-hitboxes" id="strip-hitboxes" role="group" aria-label="LED strip segments"></div>
+            <div class="strip-readout" id="strip-readout" role="status" aria-live="polite">
+              <span class="strip-name" id="strip-name"></span>
+              <span class="strip-change" id="strip-change"></span>
+              <span class="strip-color" id="strip-color"></span>
+            </div>
+          </div>
+
+          <div class="activation" id="activation">
+            <p class="eyebrow" id="device-model-label">GOVEE H617A</p>
+            <h2>The strip is <span id="power-word" aria-live="polite">off</span>.</h2>
+            <button id="power-button" class="power-button" type="button" aria-label="Turn on LED strip" aria-pressed="false">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5v18M14.3 11.8A18 18 0 1 0 33.7 11.8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+            </button>
+            <div class="connection-status" id="connection-status" data-phase="searching" role="status" aria-live="polite">
+              <span class="connection-dot" aria-hidden="true"></span>
+              <span class="connection-text" id="connection-text">Looking for your strip…</span>
+              <button class="connection-change" id="connection-change" type="button" hidden>Change strip</button>
+            </div>
+            <label class="device-selector" id="device-selector" hidden>Your strip
+              <select id="device-model" aria-label="Govee strip model">
+                <option value="H617A">Govee H617A</option>
+                <option value="H617C">Govee H617C · beta</option>
+                <option value="H6053">Govee H6053 · beta</option>
+                <option value="H6072">Govee H6072 · beta</option>
+                <option value="H6102">Govee H6102 · beta</option>
+                <option value="H6199">Govee H6199 · beta</option>
+              </select>
+            </label>
+            <div class="app-alert app-alert-dark" id="power-alert" role="alert" hidden>
+              <span class="app-alert-icon" aria-hidden="true">!</span>
+              <div class="app-alert-copy"><strong>Strip connection</strong><p id="power-error"></p>
+                <div class="app-alert-actions"><button class="app-alert-action" id="power-retry" type="button" hidden>Retry now</button><button class="app-alert-action is-secondary" id="power-forget" type="button" hidden>Find another strip</button></div>
+              </div>
+            </div>
+          </div>
+
+          <a class="scroll-hint" id="scroll-hint" href="#activation"><span>Swipe to activate</span><span class="scroll-arrow" aria-hidden="true">↓</span></a>
+        </div>
+      </section>
+
+      <section class="market" id="mercado" aria-label="Cotizaciones">
+        <div class="market-arrival" aria-hidden="true"><span></span><i></i><span></span></div>
+        <div class="market-wrap">
+          <div class="market-head">
+            <div>
+              <p class="section-label">02 / MARKET</p>
+              <h2>Your portfolio<span>.</span></h2>
+            </div>
+            <div class="market-actions">
+              <p class="market-timestamp" id="market-timestamp">Fetching quotes…</p>
+              <button class="edit-portfolio-button" id="edit-portfolio-button" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 14h14M7 3v6m6 2v6"/></svg>Edit portfolio</button>
+            </div>
+          </div>
+          <div class="market-context">
+            <p id="market-breadth" class="market-breadth"></p>
+            <nav class="light-alerts features" id="light-alerts" aria-label="Strip features" hidden>
+              <span class="features-label">Features</span>
+              <div class="features-chips">
+                <button class="feature-chip" id="pro-pulse-action" type="button" title="A blink when a company crosses ±1–5%"><span class="pro-menu-icon pro-menu-icon-pulse" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Flashes<span class="feature-state" id="feature-pulse-state"></span></button>
+                <button class="feature-chip" id="pro-average-action" type="button" title="One segment with your portfolio’s average move"><span class="pro-menu-icon pro-menu-icon-average" aria-hidden="true"><i></i><i></i><i></i></span>Average<span class="feature-state" id="feature-average-state"></span></button>
+                <button class="feature-chip" id="pro-ambient-action" type="button" title="Brightness by time of day and move strength"><span class="pro-menu-icon pro-menu-icon-ambient" aria-hidden="true"><i>◐</i></span>Ambient<span class="feature-state" id="feature-ambient-state"></span></button>
+                <button class="feature-chip" id="pro-carousel-action" type="button" title="Cycle a list of companies across the strip"><span class="pro-menu-icon pro-menu-icon-carousel" aria-hidden="true"><i></i><i></i><i></i></span>Carousel<span class="feature-state" id="feature-carousel-state"></span></button>
+                <button class="feature-chip" id="feature-targets-action" type="button" title="Sell and stop prices in each company’s detail"><span class="pro-menu-icon pro-menu-icon-target" aria-hidden="true">◎</span>Targets<span class="feature-state" id="feature-target-state"></span></button>
+              </div>
+            </nav>
+          </div>
+          <div class="app-alert app-alert-light" id="market-alert" role="status" hidden>
+            <span class="app-alert-icon" aria-hidden="true">!</span>
+            <div class="app-alert-copy"><strong id="market-alert-title">Partial data</strong><p id="market-error"></p></div>
+          </div>
+          <div class="quote-columns" aria-hidden="true"><span>COMPANY</span><span>LAST SESSION</span><span>PRICE / CHANGE</span><span></span></div>
+          <div class="quote-list" id="quote-list" aria-live="polite"></div>
+          <p class="market-notice" id="market-notice" role="status"></p>
+          <footer class="site-footer">
+            <span class="site-footer-brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i></span>Market in Light</span>
+            <span>Quotes from Yahoo Finance, possibly delayed. Personal project; not financial advice.</span>
+          </footer>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="pro-dialog" id="pro-dialog" aria-labelledby="pro-title" aria-describedby="pro-description">
+      <button class="pro-close" id="pro-close" type="button" aria-label="Close flashes" autofocus><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button>
+      <div class="pro-layout">
+        <div class="pro-showcase" id="pro-showcase">
+          <div class="pro-showcase-top"><span>FLASHES</span></div>
+          <div class="pro-demo" role="img" id="pro-demo" aria-label="Simulation of a two-second green flash after a 2% rise">
+            <div class="pro-demo-halo" aria-hidden="true"></div>
+            <div class="pro-demo-quote" aria-hidden="true"><span>THRESHOLD REACHED</span><strong id="pro-demo-value">+2<span>.00%</span></strong></div>
+            <div class="pro-demo-strip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <span class="pro-demo-duration" id="pro-demo-duration" aria-hidden="true">2 seconds of light.</span>
+          </div>
+          <div class="pro-demo-controls">
+            <div class="pro-direction" role="group" aria-label="Simulate a rise or a fall"><button type="button" data-pro-direction="1" aria-pressed="true">Rise</button><button type="button" data-pro-direction="-1" aria-pressed="false">Fall</button></div>
+            <button class="pro-replay" id="pro-replay" type="button" aria-label="Replay simulation"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7a6.5 6.5 0 1 1 0 6M4 3v4h4"/></svg></button>
+          </div>
+          <span class="pro-simulation-label">SIMULATION</span>
+        </div>
+        <div class="pro-content">
+          <p class="pro-eyebrow">MARKET IN LIGHT · FLASHES</p>
+          <h2 id="pro-title">The market moves.<br><em>Your light responds.</em></h2>
+          <p class="pro-description" id="pro-description">Its segment flashes when a company crosses a new threshold.</p>
+          <div class="pro-thresholds" role="group" aria-label="Simulation threshold"><button type="button" data-pro-level="1" aria-pressed="false">±1%</button><button type="button" data-pro-level="2" aria-pressed="true">±2%</button><button type="button" data-pro-level="3" aria-pressed="false">±3%</button><button type="button" data-pro-level="4" aria-pressed="false">±4%</button><button type="button" data-pro-level="5" aria-pressed="false">±5%</button></div>
+          <div class="pro-facts"><span>1% = 1 second of light</span><span>Once per threshold and session</span></div>
+          <div class="pro-purchase">
+            <button class="pro-activate" id="light-alerts-toggle" type="button" aria-pressed="false"><span id="pro-activate-label">Turn on flashes</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button>
+            <p class="light-alerts-status" id="light-alerts-status" role="status"></p>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="pro-settings-dialog" id="average-dialog" aria-labelledby="average-title">
+      <button class="pro-settings-close" id="average-close" type="button" aria-label="Cerrar">×</button>
+      <div class="pro-settings-kicker"><span>AVERAGE</span></div>
+      <h2 id="average-title">Your portfolio,<br><em>your way.</em></h2>
+      <div class="pro-setting-choice" role="group" aria-label="Average type">
+        <button type="button" id="average-equal" aria-pressed="true">Equal weight</button>
+        <button type="button" id="average-weighted" aria-pressed="false">Custom</button>
+      </div>
+      <div class="average-weights" id="average-weights" hidden></div>
+      <p class="pro-settings-note" id="average-total" hidden></p>
+      <p class="pro-settings-status" id="average-status" role="status"></p>
+      <button class="pro-settings-save" id="average-save" type="button">Save average</button>
+      <button class="pro-settings-secondary" id="average-strip" type="button">Add to the strip ↗</button>
+    </dialog>
+
+    <dialog class="pro-settings-dialog" id="ambient-dialog" aria-labelledby="ambient-title">
+      <button class="pro-settings-close" id="ambient-close" type="button" aria-label="Cerrar">×</button>
+      <div class="pro-settings-kicker"><span>AMBIENT</span></div>
+      <h2 id="ambient-title">The light follows<br><em>your rhythm.</em></h2>
+      <label class="pro-setting-switch"><span>Ambient</span><input id="ambient-enabled" type="checkbox"><i aria-hidden="true"></i></label>
+      <label class="pro-setting-switch"><span>Night mode</span><input id="ambient-night" type="checkbox"><i aria-hidden="true"></i></label>
+      <label class="pro-setting-switch"><span>Schedule</span><input id="ambient-schedule" type="checkbox"><i aria-hidden="true"></i></label>
+      <div class="ambient-hours" id="ambient-hours"><label>From <input id="ambient-start" type="time" value="22:00"></label><label>Until <input id="ambient-end" type="time" value="07:00"></label></div>
+      <p class="pro-settings-status" id="ambient-status" role="status"></p>
+      <button class="pro-settings-save" id="ambient-save" type="button">Save ambient settings</button>
+    </dialog>
+
+    <dialog class="carousel-dialog" id="carousel-dialog" aria-labelledby="carousel-title">
+      <button class="carousel-close" id="carousel-close" type="button" aria-label="Close carousel">×</button>
+      <div class="carousel-head"><span>CAROUSEL</span></div>
+      <h2 id="carousel-title">A portfolio<br><em>that keeps moving.</em></h2>
+      <div class="carousel-preview" id="carousel-preview" aria-label="Carousel sections"></div>
+      <div class="carousel-now"><strong id="carousel-current">Add companies</strong><span id="carousel-current-change">—</span></div>
+      <form class="carousel-search" id="carousel-search-form"><input id="carousel-search-input" type="search" placeholder="Add company" autocomplete="off" spellcheck="false"><button type="submit" aria-label="Buscar">+</button></form>
+      <div class="carousel-results" id="carousel-results" aria-live="polite"></div>
+      <div class="carousel-list" id="carousel-list"></div>
+      <p class="carousel-status" id="carousel-status" role="status"></p>
+      <button class="carousel-toggle" id="carousel-toggle" type="button">Enable carousel</button>
+      <p class="carousel-note">Automatic allocation · drag to reorder.</p>
+    </dialog>
+
+    <div class="detail-overlay" id="detail-overlay" hidden>
+      <div class="detail-shell" role="dialog" aria-modal="true" aria-labelledby="detail-symbol">
+        <aside class="detail-overview">
+          <div class="detail-names"><h2 id="detail-symbol">AAPL</h2><span id="detail-name">Apple Inc.</span></div>
+          <p class="detail-exchange" id="detail-exchange">NASDAQ · USD</p>
+          <div class="detail-value"><span class="price-caption">LATEST PRICE</span><strong id="detail-price">—</strong><span id="detail-change">—</span><small id="detail-change-basis">Compared with previous close</small></div>
+          <button class="detail-target-toggle" id="detail-target-toggle" type="button" aria-expanded="false" aria-controls="detail-targets" hidden>Targets<span aria-hidden="true">↗</span></button>
+          <form class="detail-targets" id="detail-targets" hidden>
+            <div class="detail-targets-head"><span>TARGETS</span><strong id="target-hit-label"></strong><button class="detail-target-close" id="detail-target-close" type="button" aria-label="Close targets">×</button></div>
+            <div class="detail-targets-fields">
+              <label class="detail-target-field is-sell"><span>Sell target</span><span class="detail-target-input"><input id="target-sell" type="number" min="0.0001" step="any" inputmode="decimal" placeholder="—"><small class="target-currency">USD</small></span></label>
+              <label class="detail-target-field is-stop"><span>Stop</span><span class="detail-target-input"><input id="target-stop" type="number" min="0.0001" step="any" inputmode="decimal" placeholder="—"><small class="target-currency">USD</small></span></label>
+            </div>
+            <div class="detail-targets-actions"><button id="target-reset" type="button" hidden>Dismiss alert</button><button type="submit">Save targets <span aria-hidden="true">↗</span></button></div>
+            <p id="target-status" role="status"></p>
+          </form>
+          <div class="detail-strip"><span class="detail-strip-label">ITS PLACE ON THE STRIP</span><div id="detail-segments" aria-hidden="true"></div><p id="detail-assignment"></p></div>
+          <p class="detail-asof" id="detail-asof">—</p>
+        </aside>
+        <div class="detail-workspace">
+          <div class="detail-topline"><div><span class="section-label">PERFORMANCE</span><p id="detail-session">Latest available session</p></div><div class="detail-window-actions"><button class="detail-close icon-button" id="detail-close" type="button" aria-label="Close details" title="Close · Esc"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button></div></div>
+          <div class="detail-period">
+          <div class="range-switch" role="group" aria-label="Chart period">
+            <button type="button" data-range="1D" class="is-active" aria-pressed="true">1D</button>
+            <button type="button" data-range="1M" aria-pressed="false">1M</button>
+            <button type="button" data-range="6M" aria-pressed="false">6M</button>
+            <button type="button" data-range="1Y" aria-pressed="false">1Y</button>
+            <button type="button" data-range="5Y" aria-pressed="false">5Y</button>
+          </div>
+            <button id="tools-toggle" class="tools-toggle" type="button" aria-expanded="false" aria-controls="chart-tools">Tools <span id="tools-count" class="tools-count" hidden>0</span><span class="tools-chevron" aria-hidden="true">⌄</span></button>
+          </div>
+            <div id="chart-tools" class="chart-tools tool-buttons" role="toolbar" aria-label="Chart tools" hidden>
+              <button id="ma200-button" type="button" aria-pressed="false" title="Average of 200 daily closes. Available from 1M."><span class="tool-line" aria-hidden="true"></span>200-day average</button>
+              <button id="dividend-button" type="button" aria-pressed="false"><span class="tool-dot" aria-hidden="true"></span>Dividends</button>
+              <button id="rect-button" type="button" aria-pressed="false" title="Draw a rectangle"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="4" y="4" width="12" height="12" rx="1"/></svg><span>Draw</span></button>
+            </div>
+          <div class="chart-readout"><span id="chart-selection" role="status" aria-live="off">—</span><button id="release-point" type="button" hidden>Unpin ×</button><div id="annotation-actions" class="annotation-actions" hidden><button id="duplicate-button" type="button" disabled>Duplicate</button><button id="delete-button" type="button" disabled>Delete</button></div></div>
+          <div class="detail-chart-wrap" id="chart-wrap">
+          <svg id="detail-chart" class="detail-chart" role="img" tabindex="0" aria-label="Interactive chart. Click or tap to pin a point; use the left and right arrow keys to move through it."></svg>
+          <div class="chart-tooltip" id="chart-tooltip" hidden></div>
+          <div class="chart-message" id="chart-message" hidden></div>
+        </div>
+        <div class="chart-footer"><span id="chart-first">—</span><span class="volume-caption">VOLUME</span><span id="chart-last">—</span></div>
+        <div class="dividend-summary" id="dividend-summary" role="status" hidden></div>
+        <div class="chart-stats" aria-label="Period summary">
+          <div><span>HIGH</span><strong id="stat-high">—</strong></div>
+          <div><span>LOW</span><strong id="stat-low">—</strong></div>
+          <div id="ma-stat" hidden><span>200-DAY AVERAGE</span><strong id="stat-ma200">—</strong></div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-overlay" id="portfolio-overlay" hidden>
+      <div class="portfolio-shell" role="dialog" aria-modal="true" aria-labelledby="portfolio-title">
+        <header class="portfolio-header">
+          <div>
+            <p class="portfolio-kicker">GOVEE H617A</p>
+            <h2 id="portfolio-title">Design your strip<span>.</span></h2>
+            <p class="portfolio-hint">Pick a company, then tap strip segments to assign them.</p>
+            <div class="portfolio-profiles" role="group" aria-label="Saved portfolios" hidden>
+              <span>PORTFOLIO</span>
+              <button type="button" data-profile="0" aria-pressed="true">1</button>
+              <button type="button" data-profile="1" aria-pressed="false">+2</button>
+              <button type="button" data-profile="2" aria-pressed="false">+3</button>
+            </div>
+          </div>
+          <div class="portfolio-header-actions"><button class="portfolio-close" id="portfolio-close" type="button" aria-label="Close editor"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button></div>
+        </header>
+        <div class="portfolio-layout">
+          <div class="portfolio-workspace">
+            <div class="editor-strip-panel">
+              <div class="editor-active" id="editor-active" hidden aria-live="polite">
+                <strong id="active-company"></strong>
+                <button id="clear-selection" type="button" aria-label="Cancel selection">×</button>
+              </div>
+              <div class="editor-segments-viewport"><div class="editor-segments" id="editor-segments" role="group" aria-label="Fifteen strip segments"></div></div>
+            </div>
+            <div class="editor-section-head company-section-head"><span>COMPANIES</span><span id="company-count">0 COMPANIES</span></div>
+            <div class="editor-companies" id="editor-companies"></div>
+          </div>
+          <aside class="portfolio-search-panel" aria-label="Search companies">
+            <label for="company-search">Add company</label>
+            <div class="company-search-wrap"><input id="company-search" type="search" placeholder="Name or ticker" autocomplete="off" spellcheck="false"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5"/><path d="m12.5 12.5 4 4"/></svg></div>
+            <div class="search-results" id="search-results" aria-live="polite"></div>
+          </aside>
+        </div>
+        <footer class="portfolio-footer">
+          <div class="portfolio-feedback"><p id="editor-status" role="status"></p><span id="editor-summary">15 / 15 segments</span><div id="editor-undo" class="editor-undo" hidden><span id="undo-company"></span><button id="undo-remove" type="button">Undo</button></div></div>
+          <div class="portfolio-footer-actions"><button id="portfolio-cancel" type="button">Cancel</button><button class="portfolio-save" id="portfolio-save" type="button">Save changes</button></div>
+        </footer>
+      </div>
+    </div>
+    <div class="discard-confirm" id="discard-confirm" hidden>
+      <div class="discard-card" role="alertdialog" aria-modal="true" aria-labelledby="discard-title" aria-describedby="discard-description">
+        <h2 id="discard-title">Unsaved changes</h2>
+        <p id="discard-description">Your changes to this portfolio will be lost.</p>
+        <div class="discard-actions">
+          <button id="discard-stay" type="button">Keep editing</button>
+          <button id="discard-changes" type="button">Discard changes</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

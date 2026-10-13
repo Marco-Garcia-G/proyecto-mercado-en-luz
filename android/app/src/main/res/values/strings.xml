@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Mercado en luz</string>
+    <string name="strip_connection">Conexión con la tira</string>
+    <string name="updating_portfolio">Actualizando cartera y tira LED</string>
+    <string name="stop">Detener</string>
+</resources>

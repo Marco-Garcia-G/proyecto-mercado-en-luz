@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#07090b">
+    <meta name="description" content="Control local de la tira Govee H617A y cotizaciones de la cartera.">
+    <title>Mercado en luz · Govee H617A</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <script>if (navigator.platform.startsWith('Mac')) document.documentElement.classList.add('platform-apple');</script>
+    <script defer src="mobile-api.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <main>
+      <section class="intro" id="inicio" aria-label="Control de la tira">
+        <div class="intro-scene">
+          <h1 class="sr-only">Mercado en luz</h1>
+          <header class="site-nav">
+            <a class="brand" href="#inicio" aria-label="Mercado en luz, inicio">
+              <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
+              <span id="device-brand">H617A</span>
+            </a>
+          </header>
+
+          <div class="light-stage">
+            <div class="light-aura" aria-hidden="true"></div>
+            <div class="light-line" aria-hidden="true"></div>
+            <div class="light-ticks" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <div class="strip-hitboxes" id="strip-hitboxes" role="group" aria-label="Segmentos de la tira LED"></div>
+            <div class="strip-readout" id="strip-readout" role="status" aria-live="polite">
+              <span class="strip-name" id="strip-name"></span>
+              <span class="strip-change" id="strip-change"></span>
+              <span class="strip-color" id="strip-color"></span>
+            </div>
+          </div>
+
+          <div class="activation" id="activation">
+            <p class="eyebrow" id="device-model-label">GOVEE H617A</p>
+            <h2>La tira está <span id="power-word" aria-live="polite">apagada</span>.</h2>
+            <button id="power-button" class="power-button" type="button" aria-label="Encender tira LED" aria-pressed="false">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5v18M14.3 11.8A18 18 0 1 0 33.7 11.8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+            </button>
+            <div class="connection-status" id="connection-status" data-phase="searching" role="status" aria-live="polite">
+              <span class="connection-dot" aria-hidden="true"></span>
+              <span class="connection-text" id="connection-text">Buscando tu tira…</span>
+              <button class="connection-change" id="connection-change" type="button" hidden>Cambiar de tira</button>
+            </div>
+            <label class="device-selector" id="device-selector" hidden>Tu tira
+              <select id="device-model" aria-label="Modelo de tira Govee">
+                <option value="H617A">Govee H617A</option>
+                <option value="H617C">Govee H617C · beta</option>
+                <option value="H6053">Govee H6053 · beta</option>
+                <option value="H6072">Govee H6072 · beta</option>
+                <option value="H6102">Govee H6102 · beta</option>
+                <option value="H6199">Govee H6199 · beta</option>
+              </select>
+            </label>
+            <div class="app-alert app-alert-dark" id="power-alert" role="alert" hidden>
+              <span class="app-alert-icon" aria-hidden="true">!</span>
+              <div class="app-alert-copy"><strong>Conexión con la tira</strong><p id="power-error"></p>
+                <div class="app-alert-actions"><button class="app-alert-action" id="power-retry" type="button" hidden>Reintentar ahora</button><button class="app-alert-action is-secondary" id="power-forget" type="button" hidden>Buscar otra tira</button></div>
+              </div>
+            </div>
+          </div>
+
+          <a class="scroll-hint" id="scroll-hint" href="#activation"><span>Desliza para activar</span><span class="scroll-arrow" aria-hidden="true">↓</span></a>
+        </div>
+      </section>
+
+      <section class="market" id="mercado" aria-label="Cotizaciones">
+        <div class="market-arrival" aria-hidden="true"><span></span><i></i><span></span></div>
+        <div class="market-wrap">
+          <div class="market-head">
+            <div>
+              <p class="section-label">02 / MERCADO</p>
+              <h2>Tu cartera<span>.</span></h2>
+            </div>
+            <div class="market-actions">
+              <p class="market-timestamp" id="market-timestamp">Buscando cotizaciones…</p>
+              <button class="edit-portfolio-button" id="edit-portfolio-button" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 14h14M7 3v6m6 2v6"/></svg>Editar cartera</button>
+            </div>
+          </div>
+          <div class="market-context">
+            <p id="market-breadth" class="market-breadth"></p>
+            <nav class="light-alerts features" id="light-alerts" aria-label="Funciones de la tira" hidden>
+              <span class="features-label">Funciones</span>
+              <div class="features-chips">
+                <button class="feature-chip" id="pro-pulse-action" type="button" title="Un parpadeo cuando una empresa cruza ±1–5 %"><span class="pro-menu-icon pro-menu-icon-pulse" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Destellos<span class="feature-state" id="feature-pulse-state"></span></button>
+                <button class="feature-chip" id="pro-average-action" type="button" title="Un segmento con la variación media de tu cartera"><span class="pro-menu-icon pro-menu-icon-average" aria-hidden="true"><i></i><i></i><i></i></span>Media<span class="feature-state" id="feature-average-state"></span></button>
+                <button class="feature-chip" id="pro-ambient-action" type="button" title="Brillo según la hora y la fuerza del movimiento"><span class="pro-menu-icon pro-menu-icon-ambient" aria-hidden="true"><i>◐</i></span>Ambiente<span class="feature-state" id="feature-ambient-state"></span></button>
+                <button class="feature-chip" id="pro-carousel-action" type="button" title="Recorre una lista de empresas por la tira"><span class="pro-menu-icon pro-menu-icon-carousel" aria-hidden="true"><i></i><i></i><i></i></span>Carrusel<span class="feature-state" id="feature-carousel-state"></span></button>
+                <button class="feature-chip" id="feature-targets-action" type="button" title="Precio de venta y stop en el detalle de cada empresa"><span class="pro-menu-icon pro-menu-icon-target" aria-hidden="true">◎</span>Objetivos<span class="feature-state" id="feature-target-state"></span></button>
+              </div>
+            </nav>
+          </div>
+          <div class="app-alert app-alert-light" id="market-alert" role="status" hidden>
+            <span class="app-alert-icon" aria-hidden="true">!</span>
+            <div class="app-alert-copy"><strong id="market-alert-title">Datos parciales</strong><p id="market-error"></p></div>
+          </div>
+          <div class="quote-columns" aria-hidden="true"><span>EMPRESA</span><span>ÚLTIMA SESIÓN</span><span>PRECIO / VARIACIÓN</span><span></span></div>
+          <div class="quote-list" id="quote-list" aria-live="polite"></div>
+          <p class="market-notice" id="market-notice" role="status"></p>
+          <footer class="site-footer">
+            <span class="site-footer-brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i></span>Mercado en luz</span>
+            <span>Cotizaciones de Yahoo Finance, con posible retraso. Proyecto personal; no es asesoramiento financiero.</span>
+          </footer>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="pro-dialog" id="pro-dialog" aria-labelledby="pro-title" aria-describedby="pro-description">
+      <button class="pro-close" id="pro-close" type="button" aria-label="Cerrar destellos" autofocus><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button>
+      <div class="pro-layout">
+        <div class="pro-showcase" id="pro-showcase">
+          <div class="pro-showcase-top"><span>DESTELLOS</span></div>
+          <div class="pro-demo" role="img" id="pro-demo" aria-label="Simulación de un destello verde de dos segundos al alcanzar una subida del 2%">
+            <div class="pro-demo-halo" aria-hidden="true"></div>
+            <div class="pro-demo-quote" aria-hidden="true"><span>UMBRAL ALCANZADO</span><strong id="pro-demo-value">+2<span>,00%</span></strong></div>
+            <div class="pro-demo-strip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <span class="pro-demo-duration" id="pro-demo-duration" aria-hidden="true">2 segundos de luz.</span>
+          </div>
+          <div class="pro-demo-controls">
+            <div class="pro-direction" role="group" aria-label="Simular una subida o una bajada"><button type="button" data-pro-direction="1" aria-pressed="true">Subida</button><button type="button" data-pro-direction="-1" aria-pressed="false">Bajada</button></div>
+            <button class="pro-replay" id="pro-replay" type="button" aria-label="Repetir simulación"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7a6.5 6.5 0 1 1 0 6M4 3v4h4"/></svg></button>
+          </div>
+          <span class="pro-simulation-label">SIMULACIÓN</span>
+        </div>
+        <div class="pro-content">
+          <p class="pro-eyebrow">MERCADO EN LUZ · DESTELLOS</p>
+          <h2 id="pro-title">El mercado se mueve.<br><em>Tu luz responde.</em></h2>
+          <p class="pro-description" id="pro-description">Un destello en su segmento cuando una empresa cruza un nuevo umbral.</p>
+          <div class="pro-thresholds" role="group" aria-label="Umbral de la simulación"><button type="button" data-pro-level="1" aria-pressed="false">±1%</button><button type="button" data-pro-level="2" aria-pressed="true">±2%</button><button type="button" data-pro-level="3" aria-pressed="false">±3%</button><button type="button" data-pro-level="4" aria-pressed="false">±4%</button><button type="button" data-pro-level="5" aria-pressed="false">±5%</button></div>
+          <div class="pro-facts"><span>1% = 1 segundo de luz</span><span>Una vez por umbral y sesión</span></div>
+          <div class="pro-purchase">
+            <button class="pro-activate" id="light-alerts-toggle" type="button" aria-pressed="false"><span id="pro-activate-label">Activar destellos</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button>
+            <p class="light-alerts-status" id="light-alerts-status" role="status"></p>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="pro-settings-dialog" id="average-dialog" aria-labelledby="average-title">
+      <button class="pro-settings-close" id="average-close" type="button" aria-label="Cerrar">×</button>
+      <div class="pro-settings-kicker"><span>MEDIA</span></div>
+      <h2 id="average-title">Tu cartera,<br><em>a tu medida.</em></h2>
+      <div class="pro-setting-choice" role="group" aria-label="Tipo de media">
+        <button type="button" id="average-equal" aria-pressed="true">Mismo peso</button>
+        <button type="button" id="average-weighted" aria-pressed="false">Personalizada</button>
+      </div>
+      <div class="average-weights" id="average-weights" hidden></div>
+      <p class="pro-settings-note" id="average-total" hidden></p>
+      <p class="pro-settings-status" id="average-status" role="status"></p>
+      <button class="pro-settings-save" id="average-save" type="button">Guardar media</button>
+      <button class="pro-settings-secondary" id="average-strip" type="button">Añadir a la tira ↗</button>
+    </dialog>
+
+    <dialog class="pro-settings-dialog" id="ambient-dialog" aria-labelledby="ambient-title">
+      <button class="pro-settings-close" id="ambient-close" type="button" aria-label="Cerrar">×</button>
+      <div class="pro-settings-kicker"><span>AMBIENTE</span></div>
+      <h2 id="ambient-title">La luz sigue<br><em>tu ritmo.</em></h2>
+      <label class="pro-setting-switch"><span>Ambiente</span><input id="ambient-enabled" type="checkbox"><i aria-hidden="true"></i></label>
+      <label class="pro-setting-switch"><span>Modo noche</span><input id="ambient-night" type="checkbox"><i aria-hidden="true"></i></label>
+      <label class="pro-setting-switch"><span>Horario</span><input id="ambient-schedule" type="checkbox"><i aria-hidden="true"></i></label>
+      <div class="ambient-hours" id="ambient-hours"><label>Desde <input id="ambient-start" type="time" value="22:00"></label><label>Hasta <input id="ambient-end" type="time" value="07:00"></label></div>
+      <p class="pro-settings-status" id="ambient-status" role="status"></p>
+      <button class="pro-settings-save" id="ambient-save" type="button">Guardar ambiente</button>
+    </dialog>
+
+    <dialog class="carousel-dialog" id="carousel-dialog" aria-labelledby="carousel-title">
+      <button class="carousel-close" id="carousel-close" type="button" aria-label="Cerrar carrusel">×</button>
+      <div class="carousel-head"><span>CARRUSEL</span></div>
+      <h2 id="carousel-title">Una cartera<br><em>que no se detiene.</em></h2>
+      <div class="carousel-preview" id="carousel-preview" aria-label="Secciones del carrusel"></div>
+      <div class="carousel-now"><strong id="carousel-current">Añade empresas</strong><span id="carousel-current-change">—</span></div>
+      <form class="carousel-search" id="carousel-search-form"><input id="carousel-search-input" type="search" placeholder="Añadir empresa" autocomplete="off" spellcheck="false"><button type="submit" aria-label="Buscar">+</button></form>
+      <div class="carousel-results" id="carousel-results" aria-live="polite"></div>
+      <div class="carousel-list" id="carousel-list"></div>
+      <p class="carousel-status" id="carousel-status" role="status"></p>
+      <button class="carousel-toggle" id="carousel-toggle" type="button">Activar carrusel</button>
+      <p class="carousel-note">Reparto automático · arrastra para ordenar.</p>
+    </dialog>
+
+    <div class="detail-overlay" id="detail-overlay" hidden>
+      <div class="detail-shell" role="dialog" aria-modal="true" aria-labelledby="detail-symbol">
+        <aside class="detail-overview">
+          <div class="detail-names"><h2 id="detail-symbol">AAPL</h2><span id="detail-name">Apple Inc.</span></div>
+          <p class="detail-exchange" id="detail-exchange">NASDAQ · USD</p>
+          <div class="detail-value"><span class="price-caption">ÚLTIMO PRECIO</span><strong id="detail-price">—</strong><span id="detail-change">—</span><small id="detail-change-basis">Respecto al cierre anterior</small></div>
+          <button class="detail-target-toggle" id="detail-target-toggle" type="button" aria-expanded="false" aria-controls="detail-targets" hidden>Objetivos<span aria-hidden="true">↗</span></button>
+          <form class="detail-targets" id="detail-targets" hidden>
+            <div class="detail-targets-head"><span>OBJETIVOS</span><strong id="target-hit-label"></strong><button class="detail-target-close" id="detail-target-close" type="button" aria-label="Cerrar objetivos">×</button></div>
+            <div class="detail-targets-fields">
+              <label class="detail-target-field is-sell"><span>Venta</span><span class="detail-target-input"><input id="target-sell" type="number" min="0.0001" step="any" inputmode="decimal" placeholder="—"><small class="target-currency">USD</small></span></label>
+              <label class="detail-target-field is-stop"><span>Stop</span><span class="detail-target-input"><input id="target-stop" type="number" min="0.0001" step="any" inputmode="decimal" placeholder="—"><small class="target-currency">USD</small></span></label>
+            </div>
+            <div class="detail-targets-actions"><button id="target-reset" type="button" hidden>Ocultar aviso</button><button type="submit">Guardar objetivos <span aria-hidden="true">↗</span></button></div>
+            <p id="target-status" role="status"></p>
+          </form>
+          <div class="detail-strip"><span class="detail-strip-label">SU LUGAR EN LA TIRA</span><div id="detail-segments" aria-hidden="true"></div><p id="detail-assignment"></p></div>
+          <p class="detail-asof" id="detail-asof">—</p>
+        </aside>
+        <div class="detail-workspace">
+          <div class="detail-topline"><div><span class="section-label">EVOLUCIÓN</span><p id="detail-session">Última sesión disponible</p></div><div class="detail-window-actions"><button class="detail-close icon-button" id="detail-close" type="button" aria-label="Cerrar detalle" title="Cerrar · Esc"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button></div></div>
+          <div class="detail-period">
+          <div class="range-switch" role="group" aria-label="Periodo del gráfico">
+            <button type="button" data-range="1D" class="is-active" aria-pressed="true">1D</button>
+            <button type="button" data-range="1M" aria-pressed="false">1M</button>
+            <button type="button" data-range="6M" aria-pressed="false">6M</button>
+            <button type="button" data-range="1Y" aria-pressed="false">1A</button>
+            <button type="button" data-range="5Y" aria-pressed="false">5A</button>
+          </div>
+            <button id="tools-toggle" class="tools-toggle" type="button" aria-expanded="false" aria-controls="chart-tools">Herramientas <span id="tools-count" class="tools-count" hidden>0</span><span class="tools-chevron" aria-hidden="true">⌄</span></button>
+          </div>
+            <div id="chart-tools" class="chart-tools tool-buttons" role="toolbar" aria-label="Herramientas del gráfico" hidden>
+              <button id="ma200-button" type="button" aria-pressed="false" title="Media de 200 cierres diarios. Disponible desde 1M."><span class="tool-line" aria-hidden="true"></span>Media 200</button>
+              <button id="dividend-button" type="button" aria-pressed="false"><span class="tool-dot" aria-hidden="true"></span>Dividendos</button>
+              <button id="rect-button" type="button" aria-pressed="false" title="Dibujar un rectángulo"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="4" y="4" width="12" height="12" rx="1"/></svg><span>Dibujar</span></button>
+            </div>
+          <div class="chart-readout"><span id="chart-selection" role="status" aria-live="off">—</span><button id="release-point" type="button" hidden>Soltar ×</button><div id="annotation-actions" class="annotation-actions" hidden><button id="duplicate-button" type="button" disabled>Duplicar</button><button id="delete-button" type="button" disabled>Eliminar</button></div></div>
+          <div class="detail-chart-wrap" id="chart-wrap">
+          <svg id="detail-chart" class="detail-chart" role="img" tabindex="0" aria-label="Gráfico interactivo. Haz clic o toca para fijar un punto; usa las flechas izquierda y derecha para recorrerlo."></svg>
+          <div class="chart-tooltip" id="chart-tooltip" hidden></div>
+          <div class="chart-message" id="chart-message" hidden></div>
+        </div>
+        <div class="chart-footer"><span id="chart-first">—</span><span class="volume-caption">VOLUMEN</span><span id="chart-last">—</span></div>
+        <div class="dividend-summary" id="dividend-summary" role="status" hidden></div>
+        <div class="chart-stats" aria-label="Resumen del periodo">
+          <div><span>MÁXIMO</span><strong id="stat-high">—</strong></div>
+          <div><span>MÍNIMO</span><strong id="stat-low">—</strong></div>
+          <div id="ma-stat" hidden><span>MEDIA 200</span><strong id="stat-ma200">—</strong></div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-overlay" id="portfolio-overlay" hidden>
+      <div class="portfolio-shell" role="dialog" aria-modal="true" aria-labelledby="portfolio-title">
+        <header class="portfolio-header">
+          <div>
+            <p class="portfolio-kicker">GOVEE H617A</p>
+            <h2 id="portfolio-title">Diseña tu tira<span>.</span></h2>
+            <p class="portfolio-hint">Elige una empresa y toca los segmentos de la tira para asignárselos.</p>
+            <div class="portfolio-profiles" role="group" aria-label="Carteras guardadas" hidden>
+              <span>CARTERA</span>
+              <button type="button" data-profile="0" aria-pressed="true">1</button>
+              <button type="button" data-profile="1" aria-pressed="false">+2</button>
+              <button type="button" data-profile="2" aria-pressed="false">+3</button>
+            </div>
+          </div>
+          <div class="portfolio-header-actions"><button class="portfolio-close" id="portfolio-close" type="button" aria-label="Cerrar editor"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button></div>
+        </header>
+        <div class="portfolio-layout">
+          <div class="portfolio-workspace">
+            <div class="editor-strip-panel">
+              <div class="editor-active" id="editor-active" hidden aria-live="polite">
+                <strong id="active-company"></strong>
+                <button id="clear-selection" type="button" aria-label="Cancelar selección">×</button>
+              </div>
+              <div class="editor-segments-viewport"><div class="editor-segments" id="editor-segments" role="group" aria-label="Quince segmentos de la tira"></div></div>
+            </div>
+            <div class="editor-section-head company-section-head"><span>EMPRESAS</span><span id="company-count">0 EMPRESAS</span></div>
+            <div class="editor-companies" id="editor-companies"></div>
+          </div>
+          <aside class="portfolio-search-panel" aria-label="Buscar empresas">
+            <label for="company-search">Añadir empresa</label>
+            <div class="company-search-wrap"><input id="company-search" type="search" placeholder="Nombre o símbolo" autocomplete="off" spellcheck="false"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5"/><path d="m12.5 12.5 4 4"/></svg></div>
+            <div class="search-results" id="search-results" aria-live="polite"></div>
+          </aside>
+        </div>
+        <footer class="portfolio-footer">
+          <div class="portfolio-feedback"><p id="editor-status" role="status"></p><span id="editor-summary">15 / 15 segmentos</span><div id="editor-undo" class="editor-undo" hidden><span id="undo-company"></span><button id="undo-remove" type="button">Deshacer</button></div></div>
+          <div class="portfolio-footer-actions"><button id="portfolio-cancel" type="button">Cancelar</button><button class="portfolio-save" id="portfolio-save" type="button">Guardar cambios</button></div>
+        </footer>
+      </div>
+    </div>
+    <div class="discard-confirm" id="discard-confirm" hidden>
+      <div class="discard-card" role="alertdialog" aria-modal="true" aria-labelledby="discard-title" aria-describedby="discard-description">
+        <h2 id="discard-title">Cambios sin guardar</h2>
+        <p id="discard-description">Los cambios de esta cartera se perderán.</p>
+        <div class="discard-actions">
+          <button id="discard-stay" type="button">Seguir editando</button>
+          <button id="discard-changes" type="button">Descartar cambios</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

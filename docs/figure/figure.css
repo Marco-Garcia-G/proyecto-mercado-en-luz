@@ -1,0 +1,61 @@
+.fig-stage{position:relative;touch-action:pan-y}
+.fig-stage>svg,.fig-stage>canvas{display:block;width:100%;height:auto}
+.fig-stage>.fig-layer{position:absolute;inset:0;height:100%!important;pointer-events:none}
+.iso:not([data-theme="light"]) .fig-gl{mix-blend-mode:screen}
+.fig-stage[data-gl] .fig-fallback{display:none}
+
+/* La escena: muro de noche en oscuro, pintura cálida en claro. */
+.fig-led{stroke:none;transition:none}
+.fig-mini{stroke:none}
+.fig-screen{fill:#05070a;stroke:var(--anatomy-lo);stroke-width:var(--anatomy-weight)}
+.iso[data-theme="light"] .fig-screen{fill:#1b1d22}
+.fig-mat{fill:var(--anatomy-face)}
+.fig-mac-screen{fill:#0b0e0d;stroke:none}
+.iso[data-theme="light"] .fig-mac-screen{fill:#14181a}
+.fig-ui{stroke:none}
+.fig-ui[data-tone="green"]{fill:#36d273}.fig-ui[data-tone="red"]{fill:#ee4b55}
+.fig-ui[data-tone="text"]{fill:#e8ece9}.fig-ui[data-tone="muted"]{fill:#7d8781}
+.fig-ui-line{fill:none;stroke-width:.6px;stroke-linecap:round;stroke-linejoin:round}
+.fig-ui-line[data-tone="green"]{stroke:#36d273}.fig-ui-line[data-tone="red"]{stroke:#ee4b55}
+.fig-wash{stroke:none;mix-blend-mode:screen}
+.iso[data-theme="light"] .fig-wash{mix-blend-mode:multiply}
+.fig-wash-stop[data-tone="green"]{stop-color:#2fd16a}
+.fig-wash-stop[data-tone="red"]{stop-color:#f23540}
+.iso:not([data-theme="light"]) .fig-wash-stop[data-tone="green"]{stop-color:#1f8f4a}
+.iso:not([data-theme="light"]) .fig-wash-stop[data-tone="red"]{stop-color:#b8262e}
+.fig-ctrl-led circle{fill:#57e389;opacity:1}
+
+/* Teclas: una por empresa, todas iguales, en el color de su tramo. */
+.fig-keys{--fig-green:#1f7a46;--fig-red:#9a262e;--fig-ink:#f1f7f2;
+  margin:6px 4px 2px;padding:14px;border-radius:12px;
+  background:linear-gradient(180deg,#181818,#121212);box-shadow:inset 0 1px 0 #ffffff0d,inset 0 0 0 1px #ffffff08,0 10px 24px -14px #000}
+.iso[data-theme="light"] .fig-keys{--fig-green:#2f9a5c;--fig-red:#cc343d;--fig-ink:#ffffff;
+  background:linear-gradient(180deg,#f1efea,#e8e5df);box-shadow:inset 0 1px 0 #fff,inset 0 0 0 1px #0000000d,0 10px 22px -16px #0000004d}
+.fig-keyrow{position:relative;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:8px}
+.fig-key{position:relative;height:52px;min-width:0;padding:0 2px;border:0;border-radius:9px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;
+  color:var(--fig-ink);font:700 11.5px/1 var(--anatomy-mono);letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:clip;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--bar) 86%,#fff) 0,var(--bar) 22%,color-mix(in srgb,var(--bar) 80%,#000) 100%);
+  box-shadow:inset 0 1px 0 #ffffff38,inset 0 -2px 0 #00000033,0 5px 10px -6px #000b;
+  transition:transform .32s var(--anatomy-ease),filter .25s,box-shadow .25s}
+.fig-key[data-tone="green"]{--bar:var(--fig-green)}
+.fig-key[data-tone="red"]{--bar:var(--fig-red)}
+.fig-key:hover{filter:brightness(1.12)}
+.fig-key:active{filter:brightness(.95)}
+.fig-key:focus-visible{outline:2px solid var(--anatomy-hi);outline-offset:3px}
+.fig-key.is-struck{animation:fig-strike .6s var(--anatomy-ease)}
+.fig-key.is-dragging{z-index:2;cursor:grabbing;transition:filter .25s,box-shadow .25s;filter:brightness(1.15);box-shadow:inset 0 1px 0 #ffffff40,0 14px 22px -8px #000d}
+@keyframes fig-strike{0%{filter:brightness(1.35)}100%{filter:none}}
+@media (max-width:560px){
+  .fig-keyrow{grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+  .fig-key{height:44px;font-size:11px}
+}
+@media (prefers-reduced-motion:reduce){.fig-key{transition:none}.fig-key.is-struck{animation:none}}
+.fig-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.iso-plate-corner[data-readout]{font-variant-numeric:tabular-nums}
+.iso-plate-corner[data-corner="title"]{opacity:.75;letter-spacing:.06em}
+.iso-plate{padding-bottom:28px}
+.iso-plate-corner[data-readout]{display:none}
+@media (max-width:560px){.iso-plate-corner[data-corner="title"]{max-width:58%;white-space:normal;text-align:right;line-height:1.4;font-size:10px}}
+.fig-source{display:flex;justify-content:center;gap:10px;margin:18px 0 0;font-size:12px;color:var(--anatomy-muted)}
+.fig-source a{color:var(--anatomy-text);text-decoration:none;border-bottom:1px solid var(--anatomy-faint)}
+.fig-source a:hover{color:var(--anatomy-strong);border-color:var(--anatomy-mid)}

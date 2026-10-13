@@ -1,0 +1,106 @@
+{
+  "model": "H617A",
+  "characteristic_uuid": "00010203-0405-0607-0809-0a0b0c0d2b11",
+  "brightness": 100,
+  "colors": {
+    "rojo": "#FF0000",
+    "verde": "#00FF00",
+    "sin datos": "#000000"
+  },
+  "open_interval_seconds": 300,
+  "closed_interval_seconds": 1800,
+  "ble_retry_seconds": [
+    5,
+    15,
+    30,
+    60
+  ],
+  "portfolio": [
+    {
+      "name": "Alphabet",
+      "symbol": "GOOGL",
+      "market": "US",
+      "segments": [
+        0,
+        1
+      ]
+    },
+    {
+      "name": "Enagás",
+      "symbol": "ENG.MC",
+      "market": "ES",
+      "segments": [
+        2,
+        3
+      ]
+    },
+    {
+      "name": "Uber",
+      "symbol": "UBER",
+      "market": "US",
+      "segments": [
+        4,
+        5
+      ]
+    },
+    {
+      "name": "Apple",
+      "symbol": "AAPL",
+      "market": "US",
+      "segments": [
+        6,
+        7
+      ]
+    },
+    {
+      "name": "TSMC",
+      "symbol": "TSM",
+      "market": "US",
+      "segments": [
+        8,
+        9
+      ]
+    },
+    {
+      "name": "Iberdrola",
+      "symbol": "IBE.MC",
+      "market": "ES",
+      "segments": [
+        10
+      ]
+    },
+    {
+      "name": "McD",
+      "symbol": "MCD",
+      "market": "US",
+      "segments": [
+        12
+      ]
+    },
+    {
+      "name": "Coca-Cola",
+      "symbol": "KO",
+      "market": "US",
+      "segments": [
+        13
+      ]
+    },
+    {
+      "name": "Amazon",
+      "symbol": "AMZN",
+      "market": "US",
+      "segments": [
+        14
+      ]
+    },
+    {
+      "symbol": "PORTFOLIO",
+      "name": "Mi cartera",
+      "market": "AVG",
+      "exchange": "MEDIA EQUIPONDERADA",
+      "segments": [
+        11
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+bleak>=0.22
+yfinance>=0.2.40

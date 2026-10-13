@@ -1,0 +1,40 @@
+# Estado local de la app (cada instalación genera el suyo)
+config.json
+device.json
+pro.json
+alerts.json
+carousel.json
+quotes_cache.json
+.quotes-*.json
+.config-*.json
+.pro-*.json
+.alerts-*.json
+.carousel-*.json
+
+# Utilidades personales
+share_demo.py
+app/tests/test_share_demo.py
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Herramientas y sistema
+.playwright-cli/
+.DS_Store
+.vscode/
+.claude/
+
+# Android
+android/.gradle/
+android/.idea/
+android/build/
+android/app/build/
+android/local.properties
+*.iml
+
+# Xcode
+xcuserdata/
+*.xcuserstate
+DerivedData/
